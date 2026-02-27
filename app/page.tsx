@@ -63,15 +63,12 @@ export default function Home() {
     isLoading,
     isError,
     refetch,
-  } = useQuery(
+  } = useQuery({
     queryKey,
-    () => fetchWeather({ city, period, metrics, unitSystem }),
-    {
-      enabled: metrics.length > 0,
-      staleTime: 1000 * 60 * 5,
-    }
-  );
-
+    queryFn: () => fetchWeather({ city, period, metrics, unitSystem }),
+    enabled: metrics.length > 0,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  })
   // transform raw data into chart-friendly array
   const chartData: any[] = [];
   if (data) {
