@@ -104,41 +104,58 @@ export default function Home() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">天気予報ダッシュボード</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <CitySelector cities={CITY_LIST} value={city} onChange={setCity} />
-        <MetricSelector
-          metrics={metrics}
-          onChange={setMetrics}
-          period={period}
-        />
-        <PeriodToggle period={period} onChange={setPeriod} />
-        <UnitToggle unitSystem={unitSystem} onChange={setUnitSystem} />
+    <div className="min-h-screen bg-gradient-to-br from-blue-950 via-indigo-950 to-blue-900 p-4">
+      <div className="max-w-4xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 mb-2">
+            天気予報ダッシュボード
+          </h1>
+          <p className="text-slate-300 text-sm">リアルタイム天気データで正確な予報をお届けします</p>
+        </div>
+
+        <div className="bg-slate-800/40 backdrop-blur border border-slate-700/50 rounded-xl p-6 mb-6 shadow-xl">
+          <h2 className="text-lg font-semibold text-slate-100 mb-4">設定</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CitySelector cities={CITY_LIST} value={city} onChange={setCity} />
+            <MetricSelector
+              metrics={metrics}
+              onChange={setMetrics}
+              period={period}
+            />
+            <PeriodToggle period={period} onChange={setPeriod} />
+            <UnitToggle unitSystem={unitSystem} onChange={setUnitSystem} />
+          </div>
+        </div>
+
+        {isLoading && <LoadingSpinner />}
+        {isError && (
+          <ErrorMessage
+            message="データ取得中にエラーが発生しました。"
+            onRetry={() => refetch()}
+          />
+        )}
+        {!isLoading && !isError && metrics.length > 0 && (
+          <div className="mb-6">
+            <WeatherChart
+              data={chartData}
+              metrics={metrics}
+              period={period}
+              unitSystem={unitSystem}
+            />
+          </div>
+        )}
+        {metrics.length === 0 && !isLoading && !isError && (
+          <div className="bg-slate-800/40 backdrop-blur border border-slate-700/50 rounded-xl p-8 text-center">
+            <p className="text-slate-300 text-lg">
+              📊 まず指標を選択してください。
+            </p>
+          </div>
+        )}
+
+        <footer className="mt-8 pt-6 border-t border-slate-700/50 text-center text-sm text-slate-400">
+          Data from Open-Meteo
+        </footer>
       </div>
-      {isLoading && <LoadingSpinner />}
-      {isError && (
-        <ErrorMessage
-          message="データ取得中にエラーが発生しました。"
-          onRetry={() => refetch()}
-        />
-      )}
-      {!isLoading && !isError && metrics.length > 0 && (
-        <WeatherChart
-          data={chartData}
-          metrics={metrics}
-          period={period}
-          unitSystem={unitSystem}
-        />
-      )}
-      {metrics.length === 0 && (
-        <p className="text-center text-gray-500">
-          まず指標を選択してください。
-        </p>
-      )}
-      <footer className="mt-6 text-center text-sm text-gray-500">
-        Data from Open‑Meteo
-      </footer>
     </div>
   );
 }
