@@ -69,29 +69,29 @@ export default function WeatherChart({
     }
   });
 
-  return (
-    <div className="w-full h-80">
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="time"
-            tickFormatter={(str) => {
-              const d = parseISO(str);
-              return period === "hourly"
-                ? format(d, "M/d H:mm")
-                : format(d, "M/d");
-            }}
-          />
-          <YAxis />
-          <Tooltip
+    return (
+        <div className="w-full h-80">
+            <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                dataKey="time"
+                tickFormatter={(str) => {
+                    const d = parseISO(str);
+                    return period === "hourly"
+                    ? format(d, "M/d H:mm")
+                    : format(d, "M/d");
+                }}
+            />
+            <YAxis />
+            <Tooltip
             labelFormatter={(label) => {
               const d = parseISO(label);
               return period === "hourly"
                 ? format(d, "yyyy-MM-dd HH:mm")
                 : format(d, "yyyy-MM-dd");
             }}
-            formatter={(value: any, name: string) => {
+            formatter={(value: any, name: any) => {
               const unit = UNIT_MAP[name]
                 ? UNIT_MAP[name][unitSystem]
                 : "";
