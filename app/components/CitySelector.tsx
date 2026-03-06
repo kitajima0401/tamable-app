@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React from "react";
-import { City } from "../lib/weather";
+import React from 'react';
+import { City } from '../lib/weather';
 
 interface Props {
   cities: City[];

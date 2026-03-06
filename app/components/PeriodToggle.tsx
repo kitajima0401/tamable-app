@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
 interface Props {
-  period: "hourly" | "daily";
-  onChange: (p: "hourly" | "daily") => void;
+  period: 'hourly' | 'daily';
+  onChange: (p: 'hourly' | 'daily') => void;
 }
 
 export default function PeriodToggle({ period, onChange }: Props) {
@@ -14,21 +14,21 @@ export default function PeriodToggle({ period, onChange }: Props) {
       <div className="inline-flex rounded-lg border border-slate-600 overflow-hidden">
         <button
           className={`px-4 py-2 transition font-medium text-sm ${
-            period === "hourly"
-              ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg"
-              : "bg-slate-700 text-slate-300 hover:bg-slate-600"
+            period === 'hourly'
+              ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg'
+              : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
           }`}
-          onClick={() => onChange("hourly")}
+          onClick={() => onChange('hourly')}
         >
           48時間
         </button>
         <button
           className={`px-4 py-2 transition font-medium text-sm ${
-            period === "daily"
-              ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg"
-              : "bg-slate-700 text-slate-300 hover:bg-slate-600"
+            period === 'daily'
+              ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg'
+              : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
           }`}
-          onClick={() => onChange("daily")}
+          onClick={() => onChange('daily')}
         >
           7日間
         </button>
